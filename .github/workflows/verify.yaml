@@ -1,0 +1,10 @@
+name: verify
+on:
+    push:
+        branches:
+            - main
+jobs:
+    verify-domains:
+        runs-on: ubuntu-latest
+        steps:
+            - run: ./scripts/verify.sh

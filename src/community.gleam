@@ -13,7 +13,7 @@ pub fn main() {
   let assert Ok(secret_api_key) = envoy.get("PORKBUN_SECRET_KEY")
   let assert Ok(api_key) = envoy.get("PORKBUN_API_KEY")
 
-  let assert Ok(domains) = get_domains()
+  let assert Ok(domains) = get_domains(from: "DOMAINS")
 
   let client = porkbun.new_client(secret_api_key, api_key)
 
@@ -70,8 +70,10 @@ pub fn main() {
   })
 }
 
-fn get_domains() -> Result(Dict(String, String), simplifile.FileError) {
-  use domains <- result.try(simplifile.read("DOMAINS"))
+fn get_domains(
+  from path: String,
+) -> Result(Dict(String, String), simplifile.FileError) {
+  use domains <- result.try(simplifile.read(path))
 
   Ok(
     domains
