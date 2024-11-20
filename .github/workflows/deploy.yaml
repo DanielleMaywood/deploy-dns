@@ -5,14 +5,14 @@ on:
             - main
     pull_request:
 jobs:
-    test:
+    deploy-dns:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
             - uses: erlef/setup-beam@v1
               with:
-                  otp-version: "26.0.2"
-                  gleam-version: "1.5.0"
+                  otp-version: "27.1.2"
+                  gleam-version: "1.6.0"
                   rebar3-version: "3"
             - run: gleam deps download
             - run: gleam run
