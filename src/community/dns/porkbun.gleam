@@ -26,7 +26,10 @@ pub type Record {
   Record(id: String, name: String, type_: String, content: String)
 }
 
-pub fn retrieve_records(client: Client) -> Result(List(Record), PorkbunError) {
+pub fn retrieve_records(
+  client: Client,
+  domain domain: String,
+) -> Result(List(Record), PorkbunError) {
   let body =
     json.object([
       #("secretapikey", json.string(client.secret_api_key)),
@@ -39,7 +42,7 @@ pub fn retrieve_records(client: Client) -> Result(List(Record), PorkbunError) {
     |> request.set_method(http.Post)
     |> request.set_scheme(http.Https)
     |> request.set_host("api.porkbun.com")
-    |> request.set_path("/api/json/v3/dns/retrieve/danielle.pet")
+    |> request.set_path("/api/json/v3/dns/retrieve/" <> domain)
     |> request.set_header("Content-Type", "application/json")
     |> request.set_body(body)
 
@@ -69,6 +72,7 @@ pub fn retrieve_records(client: Client) -> Result(List(Record), PorkbunError) {
 
 pub fn create_cname_record(
   client: Client,
+  domain domain: String,
   name name: String,
   content content: String,
 ) -> Result(Nil, PorkbunError) {
@@ -88,7 +92,7 @@ pub fn create_cname_record(
     |> request.set_method(http.Post)
     |> request.set_scheme(http.Https)
     |> request.set_host("api.porkbun.com")
-    |> request.set_path("/api/json/v3/dns/create/danielle.pet")
+    |> request.set_path("/api/json/v3/dns/create/" <> domain)
     |> request.set_header("Content-Type", "application/json")
     |> request.set_body(body)
 
@@ -109,6 +113,7 @@ pub fn create_cname_record(
 
 pub fn edit_record(
   client: Client,
+  domain domain: String,
   id id: String,
   name name: String,
   content content: String,
@@ -129,7 +134,7 @@ pub fn edit_record(
     |> request.set_method(http.Post)
     |> request.set_scheme(http.Https)
     |> request.set_host("api.porkbun.com")
-    |> request.set_path("/api/json/v3/dns/edit/danielle.pet/" <> id)
+    |> request.set_path("/api/json/v3/dns/edit/" <> domain <> "/" <> id)
     |> request.set_header("Content-Type", "application/json")
     |> request.set_body(body)
 
