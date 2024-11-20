@@ -8,6 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+            - run: ./scripts/verify.sh
             - uses: erlef/setup-beam@v1
               with:
                   otp-version: "27.1.2"
